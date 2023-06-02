@@ -1,0 +1,38 @@
+name: Build on PR
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      # Add your build and test steps here
+      - name: Compile C++ code
+        run: |
+          npm install
+          npm run compile
+
+      - name: Test C++ code
+        run: |
+          npm run exec
+
+      - name: Set status check
+        uses: mheap/github-action-create-status-check@v1
+        with:
+          context: Build
+          state: ${{ job.status }}
+          description: "Build result: ${{ job.status }}"
