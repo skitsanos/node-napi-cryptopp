@@ -29,10 +29,3 @@ jobs:
       - name: Test C++ code
         run: |
           npm run exec
-
-      - name: Set status check
-        uses: mheap/github-action-create-status-check@v1
-        with:
-          context: Build
-          state: ${{ job.status }}
-          description: "Build result: ${{ job.status }}"
