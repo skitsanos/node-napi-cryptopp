@@ -23,9 +23,9 @@ jobs:
       # Add your build and test steps here
       - name: Compile C++ code
         run: |
-          npm install
-          npm run compile
+          yarn
+          yarn run compile
 
       - name: Test C++ code
         run: |
-          npm run exec
+          yarn run exec
